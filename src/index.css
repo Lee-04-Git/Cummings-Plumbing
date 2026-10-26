@@ -1,0 +1,205 @@
+@import "tailwindcss";
+
+@theme {
+  /* "Soft Shore": soft cream, powder blue and mint, a gentle slate-navy, and seafoam for actions. */
+  --color-ink: #2b3a4e; /* soft slate-navy — text, hero tint, footer (11:1 on cream) */
+  --color-ink-2: #34506b;
+  --color-ink-3: #3f5e7c;
+  --color-ocean: #4a6f94;
+  --color-tide: #9ccbeb; /* light blue — small accents on dark */
+  --color-tide-deep: #356a9f; /* dusty brand blue — labels, icons, links (5.5:1 on cream) */
+  --color-sky: #c6e2f7; /* labels on dark (8.6:1) */
+  --color-paper: #fffbf6; /* soft cream */
+  --color-cloud: #eef4f8; /* powder blue sections */
+  --color-mint: #e6f4f1; /* soft mint sections */
+  --color-stone: #e4edf3;
+  --color-sand: #d6e2ea;
+  --color-signal: #86cbc1; /* seafoam — primary actions only (slate text on it 6.2:1) */
+  --color-signal-light: #a3d9d1;
+  --color-signal-deep: #287067; /* seafoam for small text on light (5.3:1) */
+  --color-muted: #5b6878;
+  --color-mist: #b9c6d3;
+  --color-danger: #b42318;
+  --color-danger-light: #ff9c8f;
+
+  --font-sans: "Manrope Variable", "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Fraunces Variable", "Fraunces", ui-serif, Georgia, serif;
+  --font-hand: "Caveat Variable", "Caveat", "Segoe Print", cursive;
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-flow: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --animate-wa-pulse: wa-pulse 2.8s ease-out infinite;
+
+  --radius-elbow: clamp(2.5rem, 7vw, 6.5rem);
+  --radius-elbow-sm: clamp(1.75rem, 4vw, 3.5rem);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-padding-top: 6rem;
+  }
+
+  /* Lenis (inertia scrolling) */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-stopped {
+    overflow: clip;
+  }
+
+  body {
+    @apply bg-paper font-sans text-ink;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--color-tide);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  img {
+    max-width: 100%;
+  }
+}
+
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 90rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4.5vw, 3.75rem);
+  }
+
+  /* Small section kicker — sentence case, not shouty mono caps. */
+  .label {
+    font-size: 0.875rem;
+    line-height: 1.4;
+    font-weight: 650;
+    letter-spacing: 0.005em;
+  }
+
+  /* Display type: Fraunces at full softness — sturdy, warm and a little hand-made. */
+  .display-xl,
+  .display-lg,
+  .display-md {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-variation-settings: "SOFT" 100, "WONK" 0;
+    font-optical-sizing: auto;
+  }
+
+  .display-xl {
+    font-size: clamp(2.8rem, 6.4vw, 6.25rem);
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+  }
+
+  .display-lg {
+    font-size: clamp(2.1rem, 4.1vw, 3.75rem);
+    line-height: 1.03;
+    letter-spacing: -0.02em;
+  }
+
+  .display-md {
+    font-size: clamp(1.4rem, 1.9vw, 1.8rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  /* Handwritten notes — used sparingly, like a pen mark on a quote. */
+  .hand {
+    font-family: var(--font-hand);
+    font-weight: 600;
+    line-height: 1.05;
+  }
+
+  .lede {
+    font-size: clamp(1.08rem, 1.35vw, 1.28rem);
+    line-height: 1.55;
+  }
+
+}
+
+/* Pipe-bend image crop: one generous rounded corner. Declared as utilities so variants work (lg:elbow-tr). */
+@utility elbow-tl {
+  border-top-left-radius: var(--radius-elbow);
+}
+@utility elbow-tr {
+  border-top-right-radius: var(--radius-elbow);
+}
+@utility elbow-bl {
+  border-bottom-left-radius: var(--radius-elbow);
+}
+@utility elbow-br {
+  border-bottom-right-radius: var(--radius-elbow);
+}
+@utility elbow-sm-tl {
+  border-top-left-radius: var(--radius-elbow-sm);
+}
+@utility elbow-sm-tr {
+  border-top-right-radius: var(--radius-elbow-sm);
+}
+@utility elbow-sm-bl {
+  border-bottom-left-radius: var(--radius-elbow-sm);
+}
+@utility elbow-sm-br {
+  border-bottom-right-radius: var(--radius-elbow-sm);
+}
+
+/* Grid children may shrink below their longest word (prevents sideways overflow on small phones). */
+.grid > * {
+  min-width: 0;
+}
+
+@keyframes wa-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  70%,
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
